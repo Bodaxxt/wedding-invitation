@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Amr & Habeba — Royal Wedding Invitation</title>
+
+  <!-- Google Fonts: Pinyon Script, Cormorant Garamond, Montserrat, Amiri -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       RESET & ROOT VARIABLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-warm: #FAF8F5;
+      --bg-card: #FDFBF7;
+      --bg-envelope-outer: #F4ECE0;
+      --bg-envelope-inner: #E6DCce;
+      --bg-envelope-pocket: #EAE1D3;
+      --text-main: #141414;
+      --text-muted: #5C5852;
+      --text-light: #8E8980;
+      --border-subtle: #E2DDD5;
+      --accent-gold: #C5A059;
+      --accent-gold-light: #F4E7CB;
+      --accent-gold-dark: #8F6F2E;
+      --font-script: 'Pinyon Script', cursive;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-arabic: 'Amiri', 'Traditional Arabic', serif;
+      --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100%;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      font-family: var(--font-serif);
+      overflow-x: hidden;
+      position: relative;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Textured Heavyweight Watercolor Paper Grain */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* ==========================================================================
+       TOP FLOATING NAV & MUSIC CONTROLLER
+       ========================================================================== */
+    .top-floating-bar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 14px 6px 10px;
+      background: rgba(253, 251, 247, 0.95);
+      border: 1px solid var(--border-subtle);
+      border-radius: 40px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+      max-width: 95vw;
+    }
+
+    .top-floating-bar.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    .music-player-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    .vinyl-disc {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #2a2a2a 26%, #111111 27%, #1a1a1a 70%, #0d0d0d 100%);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .vinyl-disc::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      border: 1.5px solid #111;
+    }
+
+    .vinyl-disc.spinning {
+      animation: spinVinyl 3.5s linear infinite;
+    }
+
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .song-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .song-title {
+      font-family: var(--font-arabic);
+      font-size: 0.84rem;
+      color: var(--text-main);
+      line-height: 1.1;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .song-artist {
+      font-family: var(--font-sans);
+      font-size: 0.52rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold-dark);
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       INTERACTION 1: HERO ENTRY WITH GRAND PALACE GATES BACKGROUND
+       ========================================================================== */
+    #hero-entry {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: 
+        linear-gradient(rgba(15, 13, 10, 0.40), rgba(15, 13, 10, 0.65)),
+        url('palace_romantic.jpg') center center / cover no-repeat;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      perspective: 1200px;
+      transition: opacity 1.3s var(--transition-smooth), transform 1.3s var(--transition-smooth), visibility 1.3s;
+    }
+
+    #hero-entry.opened {
+      opacity: 0;
+      transform: scale(1.08);
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .hero-header-text {
+      text-align: center;
+      margin-bottom: 22px;
+      pointer-events: none;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--accent-gold-light);
+      margin-bottom: 6px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 6vw, 2.7rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: #FFFFFF;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.7);
+    }
+
+    /* The 3D Responsive Physical Envelope */
+    .envelope-stage {
+      position: relative;
+      width: 90vw;
+      max-width: 440px;
+      aspect-ratio: 1.46 / 1;
+      perspective: 1200px;
+      margin: 6px auto 20px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .envelope-body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-envelope-outer);
+      border-radius: 4px;
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.45),
+        0 6px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: visible;
+    }
+
+    /* Inner Invitation Card that slides upwards on open */
+    .inner-envelope-card {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      right: 14px;
+      bottom: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 2px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      opacity: 0;
+      transition: transform 1.25s cubic-bezier(0.25, 1, 0.5, 1) 0.35s, opacity 0.4s ease 0.3s;
+    }
+
+    .inner-envelope-card::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 0.5px solid rgba(197, 160, 89, 0.35);
+      pointer-events: none;
+    }
+
+    .preview-arabic-line {
+      font-family: var(--font-arabic);
+      font-size: clamp(0.72rem, 2.6vw, 0.95rem);
+      color: var(--accent-gold-dark);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .preview-couple-names {
+      font-family: var(--font-script);
+      font-size: clamp(1.8rem, 6.2vw, 2.5rem);
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .preview-details-line {
+      font-family: var(--font-sans);
+      font-size: clamp(0.5rem, 1.8vw, 0.6rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .envelope-stage.opening .inner-envelope-card {
+      opacity: 1;
+      transform: translateY(-58%) scale(1.04);
+      z-index: 10;
+      box-shadow: 0 30px 65px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Responsive Left, Right, & Bottom Pockets (100% Solid Opacity) */
+    .pocket-left {
+      position: absolute;
+      top: 0; left: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(135deg, #EBE3D6 0%, #DED4C5 100%);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      -webkit-clip-path: polygon(0 0, 100% 50%, 0 100%);
+      opacity: 1;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .pocket-right {
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(-135deg, #EBE3D6 0%, #DED4C5 100%);
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+      -webkit-clip-path: polygon(100% 0, 0 50%, 100% 100%);
+      opacity: 1;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .pocket-bottom {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 57%;
+      background: linear-gradient(to top, #E3D9C9 0%, #F1EAE0 100%);
+      clip-path: polygon(0 100%, 100% 100%, 50% 0);
+      -webkit-clip-path: polygon(0 100%, 100% 100%, 50% 0);
+      opacity: 1;
+      z-index: 4;
+      pointer-events: none;
+      filter: drop-shadow(0 -3px 6px rgba(0, 0, 0, 0.05));
+    }
+
+    .envelope-top-flap {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 58%;
+      background: linear-gradient(to bottom, #F9F5EC 0%, #EFE7DA 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 1.1s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.3s ease 0.4s;
+      z-index: 6;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+      pointer-events: none;
+    }
+
+    .envelope-stage.opening .envelope-top-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    /* Royal Wax Seal Trigger */
+    .wax-seal-wrapper {
+      position: absolute;
+      top: 58%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 8;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: auto;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .wax-seal-wrapper.broken {
+      animation: sealWrapperBreak 0.45s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+      pointer-events: none;
+    }
+
+    @keyframes sealWrapperBreak {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        filter: brightness(1);
+        opacity: 1;
+      }
+      30% {
+        transform: translate(-50%, -50%) scale(1.18) rotate(3deg);
+        filter: brightness(1.4);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.4) rotate(-5deg);
+        filter: blur(8px);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .royal-wax-seal {
+      width: clamp(92px, 24vw, 118px);
+      height: clamp(92px, 24vw, 118px);
+      border-radius: 49% 51% 50% 50% / 50% 49% 51% 50%;
+      background: radial-gradient(circle at 34% 30%, #5A472E 0%, #302213 45%, #181108 80%, #0A0703 100%);
+      box-shadow: 
+        0 18px 45px rgba(0, 0, 0, 0.65),
+        0 4px 14px rgba(0, 0, 0, 0.45),
+        inset 0 3px 6px rgba(255, 235, 195, 0.45),
+        inset 0 -5px 12px rgba(0, 0, 0, 0.9),
+        0 0 0 3.5px rgba(197, 160, 89, 0.5),
+        0 0 25px rgba(197, 160, 89, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      overflow: visible;
+    }
+
+    .royal-wax-seal::after {
+      content: "";
+      position: absolute;
+      top: 6px; left: 10px; width: 40%; height: 26%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+      transform: rotate(-25deg);
+    }
+
+    .royal-wax-seal:hover, .envelope-stage:hover .royal-wax-seal {
+      transform: scale(1.08) rotate(1.5deg);
+      box-shadow: 
+        0 22px 50px rgba(0, 0, 0, 0.7),
+        inset 0 3px 6px rgba(255, 235, 195, 0.6),
+        inset 0 -5px 12px rgba(0, 0, 0, 0.9),
+        0 0 0 5px rgba(212, 175, 105, 0.7),
+        0 0 35px rgba(197, 160, 89, 0.55);
+    }
+
+    .royal-monogram-svg {
+      width: 86%;
+      height: 86%;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
+      pointer-events: none;
+    }
+
+    .pulse-glow-ring {
+      position: absolute;
+      width: 130%;
+      height: 130%;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 105, 0.65);
+      top: -15%; left: -15%;
+      pointer-events: none;
+      animation: pulseGlow 2.5s ease-out infinite;
+    }
+
+    /* Magical Burst Butterflies on Click */
+    .burst-butterflies-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 99999;
+      overflow: hidden;
+    }
+
+    .seal-sparkle-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF8E7 0%, #E5C788 50%, #C5A059 100%);
+      box-shadow: 0 0 10px #FFE08A, 0 0 4px #FFFFFF;
+      pointer-events: none;
+    }
+
+    @keyframes sparkleFly {
+      0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 1;
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    .burst-butterfly {
+      position: absolute;
+      width: 26px;
+      height: 22px;
+      perspective: 600px;
+      transform-style: preserve-3d;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .burst-wing {
+      position: absolute;
+      top: 0;
+      width: 13px;
+      height: 22px;
+      background: radial-gradient(circle at 40% 35%, #FFF0CD 0%, #E5C788 45%, #C5A059 80%, #7D5C20 100%);
+      border: 0.5px solid rgba(255, 255, 255, 0.85);
+      border-radius: 12px 5px 10px 4px;
+      box-shadow: 0 2px 8px rgba(197, 160, 89, 0.45), inset 0 1px 2px rgba(255,255,255,0.7);
+    }
+
+    .burst-wing-left {
+      left: 0;
+      transform-origin: right center;
+      animation: burstWingFlap 0.16s ease-in-out infinite alternate;
+    }
+
+    .burst-wing-right {
+      right: 0;
+      transform-origin: left center;
+      border-radius: 5px 12px 4px 10px;
+      animation: burstWingFlap 0.16s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes burstWingFlap {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(-74deg); }
+    }
+
+    @keyframes burstButterflyFlight {
+      0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+        transform: translate(calc(-50% + var(--tx) * 0.22), calc(-50% + var(--ty) * 0.22)) scale(calc(var(--scale) * 1.15)) rotate(var(--rot));
+      }
+      55% {
+        opacity: 0.95;
+        transform: translate(calc(-50% + var(--tx) * 0.72), calc(-50% + var(--ty) * 0.72)) scale(var(--scale)) rotate(calc(var(--rot) + 14deg));
+      }
+      85% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) - 45px)) scale(calc(var(--scale) * 0.85)) rotate(calc(var(--rot) - 10deg));
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(0.92); opacity: 0.9; }
+      50% { transform: scale(1.18); opacity: 0; }
+      100% { transform: scale(1.18); opacity: 0; }
+    }
+
+    .seal-tap-guide {
+      position: absolute;
+      top: 100%;
+      margin-top: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .seal-tap-guide::before, .seal-tap-guide::after {
+      content: "";
+      width: 16px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ==========================================================================
+       MAGICAL FLYING BUTTERFLIES (فراشات بتطير وتقف على الكلام)
+       ========================================================================== */
+    .butterfly-system {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    .butterfly {
+      position: absolute;
+      width: 22px;
+      height: 18px;
+      perspective: 500px;
+      transform-style: preserve-3d;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    body.butterflies-active .butterfly,
+    #main-invitation.visible ~ .butterfly-system .butterfly {
+      opacity: 0.92;
+    }
+
+    .bf-wing {
+      position: absolute;
+      top: 0;
+      width: 11px;
+      height: 18px;
+      background: radial-gradient(circle at 40% 40%, rgba(229, 199, 136, 0.95), rgba(197, 160, 89, 0.85) 60%, rgba(143, 111, 46, 0.9) 100%);
+      border: 0.5px solid rgba(255, 255, 255, 0.6);
+      border-radius: 10px 4px 8px 3px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+
+    .bf-wing-left {
+      left: 0;
+      transform-origin: right center;
+      animation: flapLeft 0.32s ease-in-out infinite alternate;
+    }
+
+    .bf-wing-right {
+      right: 0;
+      transform-origin: left center;
+      border-radius: 4px 10px 3px 8px;
+      animation: flapRight 0.32s ease-in-out infinite alternate;
+    }
+
+    @keyframes flapLeft {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(-68deg); }
+    }
+
+    @keyframes flapRight {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(68deg); }
+    }
+
+    /* Butterfly 1: Fluttering and lands softly right on Amr & Habeba '&' */
+    .bf-1 {
+      top: 20%; left: -30px;
+      animation: flyAndLand1 18s ease-in-out forwards 1.2s infinite;
+    }
+
+    @keyframes flyAndLand1 {
+      0% { transform: translate(-20px, 100px) rotate(20deg) scale(0.9); opacity: 0; }
+      15% { transform: translate(120px, 60px) rotate(-15deg) scale(1); opacity: 0.9; }
+      35% { transform: translate(240px, 140px) rotate(35deg) scale(0.95); }
+      55% { transform: translate(45vw, 320px) rotate(-10deg) scale(1); }
+      75% { transform: translate(50vw, 345px) rotate(5deg) scale(1); }
+      85%, 100% { transform: translate(50vw, 345px) rotate(12deg) scale(0.95); }
+    }
+
+    /* Butterfly 2: Roaming gracefully around the verse and header */
+    .bf-2 {
+      top: 35%; right: -30px;
+      animation: flyAndLand2 22s ease-in-out forwards 2s infinite;
+    }
+
+    @keyframes flyAndLand2 {
+      0% { transform: translate(30px, 40px) rotate(-25deg); opacity: 0; }
+      20% { transform: translate(-140px, 120px) rotate(15deg); opacity: 0.85; }
+      40% { transform: translate(-280px, -20px) rotate(-30deg); }
+      60% { transform: translate(-42vw, 80px) rotate(20deg); }
+      80%, 100% { transform: translate(-38vw, 65px) rotate(-8deg); }
+    }
+
+    /* Butterfly 3: Floating gently across the bottom and table */
+    .bf-3 {
+      bottom: 25%; left: -40px;
+      animation: flyAround3 24s ease-in-out forwards 3s infinite;
+    }
+
+    @keyframes flyAround3 {
+      0% { transform: translate(0, 0) rotate(15deg); opacity: 0; }
+      25% { transform: translate(25vw, -60px) rotate(-10deg); opacity: 0.8; }
+      50% { transform: translate(55vw, -30px) rotate(25deg); }
+      75% { transform: translate(75vw, -120px) rotate(-15deg); }
+      95%, 100% { transform: translate(95vw, -70px) rotate(10deg); opacity: 0; }
+    }
+
+    /* ==========================================================================
+       MAIN PAGE: REVEALED INVITATION CARD
+       ========================================================================== */
+    #main-invitation {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 16px 140px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.4s var(--transition-smooth) 0.4s, transform 1.4s var(--transition-smooth) 0.4s;
+    }
+
+    #main-invitation.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Masterpiece Stationery Card */
+    .masterpiece-card {
+      width: 100%;
+      max-width: 720px;
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 
+        0 24px 60px rgba(0, 0, 0, 0.04),
+        0 2px 10px rgba(0, 0, 0, 0.02);
+      border-radius: 3px;
+      position: relative;
+      padding: 60px 36px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 600px) {
+      .masterpiece-card {
+        padding: 44px 18px;
+        margin-bottom: 28px;
+      }
+    }
+
+    .card-border-outer {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid var(--border-subtle);
+      pointer-events: none;
+    }
+
+    .card-border-inner {
+      position: absolute;
+      inset: 16px;
+      border: 0.5px solid rgba(0, 0, 0, 0.05);
+      pointer-events: none;
+    }
+
+    .corner-mark {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+    .corner-tl { top: 22px; left: 22px; border-top: 1px solid var(--text-main); border-left: 1px solid var(--text-main); }
+    .corner-tr { top: 22px; right: 22px; border-top: 1px solid var(--text-main); border-right: 1px solid var(--text-main); }
+    .corner-bl { bottom: 22px; left: 22px; border-bottom: 1px solid var(--text-main); border-left: 1px solid var(--text-main); }
+    .corner-br { bottom: 22px; right: 22px; border-bottom: 1px solid var(--text-main); border-right: 1px solid var(--text-main); }
+
+    /* Line-Art Drawings */
+    .draw-stroke {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      stroke-width: 1.2;
+      stroke: var(--text-main);
+      fill: none;
+      transition: stroke-dashoffset 2.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #main-invitation.visible .draw-stroke { stroke-dashoffset: 0; }
+    .sparkle-dot { fill: var(--text-main); opacity: 0; transition: opacity 1.2s ease 1.8s; }
+    #main-invitation.visible .sparkle-dot { opacity: 0.8; }
+
+    .line-art-top {
+      width: 120px;
+      height: 90px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Arabic Verse */
+    .arabic-verse-container {
+      margin: 8px 0 22px;
+      max-width: 520px;
+      position: relative;
+    }
+
+    .arabic-bismillah {
+      font-family: var(--font-arabic);
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .arabic-verse {
+      font-family: var(--font-arabic);
+      font-size: clamp(1.4rem, 4.8vw, 1.95rem);
+      line-height: 1.9;
+      color: var(--text-main);
+      font-weight: 400;
+      direction: rtl;
+    }
+
+    .verse-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .verse-ornament::before, .verse-ornament::after {
+      content: "";
+      width: 44px;
+      height: 0.75px;
+      background: var(--border-subtle);
+    }
+
+    .verse-ornament-diamond {
+      width: 5px;
+      height: 5px;
+      background: var(--accent-gold);
+      transform: rotate(45deg);
+    }
+
+    .invitation-intro {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .invitation-for {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-light);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    /* Couple Names */
+    .couple-names-wrap {
+      margin: 10px 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .couple-names {
+      font-family: var(--font-script);
+      font-size: clamp(2.8rem, 10vw, 5.2rem);
+      line-height: 1.08;
+      font-weight: 400;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+
+    .ampersand {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      color: var(--accent-gold);
+      margin: 0 4px;
+    }
+
+    .divider-monogram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 260px;
+      margin: 16px 0 22px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 0.75px;
+      background: var(--border-subtle);
+    }
+
+    .divider-initials {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+    }
+
+    .arabic-invitation-request {
+      font-family: var(--font-arabic);
+      font-size: clamp(1.05rem, 3.8vw, 1.25rem);
+      color: var(--text-main);
+      margin-bottom: 12px;
+      direction: rtl;
+      line-height: 1.8;
+    }
+
+    .announcement-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(0.95rem, 3vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    /* Dining Table Line Art */
+    .line-art-bottom {
+      width: 100%;
+      max-width: 420px;
+      height: 95px;
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .line-art-bottom svg { width: 100%; height: 100%; overflow: visible; }
+
+    /* ==========================================================================
+       SEPARATE SECTION 1: DATE & TIME (الموعد والتاريخ والعداد التنازلي)
+       ========================================================================== */
+    .section-header { text-align: center; margin-bottom: 26px; position: relative; }
+    .section-sub { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(1.7rem, 5vw, 2.3rem); font-weight: 300; letter-spacing: 0.05em; color: var(--text-main); }
+    .section-arabic-sub { font-family: var(--font-arabic); font-size: 1.1rem; color: var(--accent-gold); margin-top: 4px; }
+
+    .date-highlight-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .date-main-text {
+      font-family: var(--font-sans);
+      font-size: clamp(1rem, 3.2vw, 1.25rem);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .time-sub-text {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      color: var(--accent-gold-dark);
+      letter-spacing: 0.1em;
+    }
+
+    /* Countdown */
+    .countdown-section {
+      width: 100%;
+      max-width: 420px;
+      margin: 10px 0 26px;
+      padding: 16px 12px;
+      background: rgba(250, 248, 245, 0.7);
+      border: 1px dashed var(--border-subtle);
+      border-radius: 2px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .countdown-item { display: flex; flex-direction: column; align-items: center; }
+    .countdown-num { font-family: var(--font-serif); font-size: clamp(1.5rem, 5vw, 1.85rem); font-weight: 400; color: var(--text-main); line-height: 1; }
+    .countdown-lbl { font-family: var(--font-sans); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light); margin-top: 4px; }
+    .countdown-divider { font-family: var(--font-serif); font-size: 1.1rem; color: var(--border-subtle); margin-bottom: 8px; }
+
+    /* ==========================================================================
+       SEPARATE SECTION 2: PALACE & VENUE (المكان - قصر ماكن عرابي وخريطة جوجل)
+       ========================================================================== */
+    .google-map-wrapper {
+      position: relative;
+      width: 100%;
+      height: 330px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      margin-bottom: 18px;
+      background: #E5E3DF;
+    }
+
+    @media (max-width: 600px) {
+      .google-map-wrapper {
+        height: 270px;
+      }
+    }
+
+    .google-map-iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .map-floating-overlay {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      width: 90%;
+      max-width: 330px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .google-maps-direct-btn {
+      width: 100%;
+      background: rgba(20, 20, 20, 0.90);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      padding: 11px 20px;
+      border-radius: 25px;
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .google-maps-direct-btn:hover {
+      background: #141414;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      color: var(--accent-gold-light);
+      border-color: var(--accent-gold);
+    }
+
+    .google-maps-direct-btn svg {
+      stroke: var(--accent-gold);
+    }
+
+    .palace-card-body {
+      padding: 16px 12px 14px;
+      text-align: center;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
+      margin-bottom: 18px;
+    }
+
+    .palace-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      color: var(--text-main);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .palace-card-desc {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Arched Palace Vignette inside Main Card */
+    .card-palace-vignette {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: 180px;
+      margin: 18px auto 22px;
+      border-radius: 90px 90px 3px 3px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .vignette-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.8s ease;
+    }
+
+    .card-palace-vignette:hover .vignette-img {
+      transform: scale(1.06);
+    }
+
+    .vignette-border {
+      position: absolute;
+      inset: 6px;
+      border: 0.5px solid rgba(255, 255, 255, 0.65);
+      border-radius: 84px 84px 2px 2px;
+      pointer-events: none;
+    }
+
+    .vignette-caption {
+      position: absolute;
+      bottom: 8px;
+      left: 0; width: 100%;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 0.55rem;
+      letter-spacing: 0.28em;
+      color: #FFFFFF;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+      pointer-events: none;
+      text-transform: uppercase;
+    }
+
+    .venue-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      .venue-info-grid { grid-template-columns: 1fr; }
+    }
+
+    .venue-info-item {
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid var(--border-subtle);
+      border-radius: 2px;
+      text-align: left;
+    }
+
+    .venue-info-label { font-family: var(--font-sans); font-size: 0.62rem; letter-spacing: 0.18em; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 4px; }
+    .venue-info-val { font-family: var(--font-serif); font-size: 1.1rem; color: var(--text-main); }
+    .venue-info-sub { font-family: var(--font-arabic); font-size: 0.92rem; color: var(--text-muted); margin-top: 3px; }
+
+    /* Buttons */
+    .btn-lux {
+      width: 100%;
+      min-height: 48px;
+      padding: 14px 24px;
+      border: 1px solid var(--text-main);
+      background: transparent;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-decoration: none;
+      position: relative;
+      transition: all 0.4s var(--transition-smooth);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .btn-lux::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--text-main);
+      transform: translateY(100%);
+      transition: transform 0.4s var(--transition-smooth);
+      z-index: 1;
+    }
+
+    .btn-lux:hover::before { transform: translateY(0); }
+    .btn-lux span, .btn-lux svg { position: relative; z-index: 2; transition: all 0.3s ease; }
+    .btn-lux:hover span { color: #FFFFFF; }
+    .btn-lux:hover svg { stroke: #FFFFFF; transform: translateY(-2px); }
+
+    .btn-lux-primary { background: var(--text-main); color: #FFFFFF; }
+    .btn-lux-primary span { color: #FFFFFF; }
+    .btn-lux-primary svg { stroke: #FFFFFF; }
+    .btn-lux-primary:hover { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); transform: translateY(-2px); }
+
+    .btn-lux-dashed {
+      border: 1px dashed var(--text-main);
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--text-main);
+    }
+    .btn-lux-dashed:hover {
+      border-style: solid;
+      background: var(--text-main);
+      color: #FFFFFF;
+    }
+    .btn-lux-dashed:hover span { color: #FFFFFF; }
+
+    .scroll-cue-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--text-muted);
+      font-family: var(--font-arabic);
+      font-size: 0.95rem;
+      text-decoration: none;
+      margin-top: 16px;
+      transition: all 0.35s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    .scroll-cue-pill:hover {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-color: var(--text-main);
+      transform: translateY(2px);
+    }
+    .scroll-cue-pill svg {
+      transition: transform 0.3s ease;
+    }
+    .scroll-cue-pill:hover svg {
+      transform: translateY(3px);
+      stroke: #FFFFFF;
+    }
+
+    /* Main Card Center Details & Buttons (Matching Screenshot Exactly) */
+    .event-details-block {
+      margin: 14px 0 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .details-datetime {
+      font-family: var(--font-sans);
+      font-size: clamp(0.72rem, 2.4vw, 0.88rem);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .details-venue-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 4.4vw, 1.8rem);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: var(--text-main);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .details-venue-sub {
+      font-family: var(--font-sans);
+      font-size: clamp(0.55rem, 1.8vw, 0.68rem);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .main-card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 360px;
+      margin: 14px 0 28px;
+    }
+
+    /* ==========================================================================
+       SECTIONS 3-6: TIMELINE, DRESS CODE, LYRIC, GUESTBOOK
+       ========================================================================== */
+    .timeline-container {
+      width: 100%;
+      max-width: 580px;
+      margin: 10px auto 0;
+      position: relative;
+    }
+
+    .timeline-container::before {
+      content: "";
+      position: absolute;
+      top: 15px; bottom: 25px; left: 50%;
+      width: 1px;
+      background: var(--border-subtle);
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 600px) {
+      .timeline-container::before { left: 16px; }
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      .timeline-item { justify-content: flex-start; padding-left: 36px; }
+    }
+
+    .timeline-node {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-gold);
+      z-index: 2;
+    }
+
+    @media (max-width: 600px) {
+      .timeline-node { left: 16px; }
+    }
+
+    .timeline-content { width: 44%; text-align: right; }
+    .timeline-item:nth-child(even) .timeline-content { text-align: left; margin-left: auto; }
+
+    @media (max-width: 600px) {
+      .timeline-content, .timeline-item:nth-child(even) .timeline-content { width: 100%; text-align: left; margin-left: 0; }
+    }
+
+    .timeline-time { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--accent-gold); font-weight: 500; margin-bottom: 2px; }
+    .timeline-event { font-family: var(--font-serif); font-size: 1.2rem; color: var(--text-main); font-weight: 500; }
+    .timeline-arabic { font-family: var(--font-arabic); font-size: 0.95rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Dress Code */
+    .dresscode-box {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--border-subtle);
+      padding: 28px 20px;
+      border-radius: 2px;
+      text-align: center;
+    }
+
+    .dresscode-type {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 4vw, 1.6rem);
+      color: var(--text-main);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .dresscode-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    .swatches-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .swatch-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .swatch-circle { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); }
+    .swatch-label { font-family: var(--font-sans); font-size: 0.55rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+
+    /* Lyric Banner */
+    .lyric-banner {
+      width: 100%;
+      padding: 26px 18px;
+      background: radial-gradient(circle at center, #FDFBF7 0%, #F5EFE4 100%);
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      border-radius: 2px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .lyric-quote {
+      font-family: var(--font-arabic);
+      font-size: clamp(1.3rem, 4.5vw, 1.85rem);
+      line-height: 1.8;
+      color: var(--text-main);
+      direction: rtl;
+    }
+
+    .lyric-author {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--accent-gold-dark);
+      margin-top: 8px;
+    }
+
+    /* Guestbook */
+    .guestbook-form { width: 100%; margin-bottom: 24px; background: rgba(255, 255, 255, 0.4); padding: 20px; border: 1px solid var(--border-subtle); border-radius: 2px; }
+    .guestbook-stream { width: 100%; display: flex; flex-direction: column; gap: 14px; max-height: 400px; overflow-y: auto; padding-right: 4px; }
+    .guestbook-card { background: #FFFFFF; border: 1px solid var(--border-subtle); padding: 16px 18px; border-radius: 2px; text-align: left; animation: fadeInWish 0.6s ease forwards; }
+    @keyframes fadeInWish { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .wish-author { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.16em; color: var(--accent-gold); text-transform: uppercase; font-weight: 500; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .wish-time { font-family: var(--font-sans); font-size: 0.58rem; color: var(--text-light); }
+    .wish-text { font-family: var(--font-serif); font-size: 1.02rem; color: var(--text-main); line-height: 1.6; }
+
+    /* Sticky Bottom Bar */
+    .mobile-bottom-bar {
+      position: fixed;
+      bottom: 0; left: 0; width: 100%;
+      background: rgba(253, 251, 247, 0.96);
+      border-top: 1px solid var(--border-subtle);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 850;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 12px;
+      box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.04);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+    .mobile-bottom-bar.active { opacity: 1; pointer-events: auto; }
+    .mobile-bar-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      font-family: var(--font-sans); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none; background: none; border: none; cursor: pointer;
+    }
+    .mobile-bar-btn svg { width: 18px; height: 18px; stroke: var(--text-main); }
+    .mobile-bar-btn:hover { color: var(--text-main); }
+
+    /* Footer */
+    .page-footer { text-align: center; padding: 30px 16px 80px; color: var(--text-light); }
+    .footer-monogram { font-family: var(--font-serif); font-size: 1.7rem; letter-spacing: 0.15em; color: var(--text-main); margin-bottom: 6px; }
+    .footer-quote { font-family: var(--font-serif); font-style: italic; font-size: 1.02rem; color: var(--text-muted); margin-bottom: 12px; }
+    .footer-copy { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; }
+
+    /* Modals & Inputs */
+    .input-field {
+      width: 100%; padding: 12px 14px; background: #FFFFFF; border: 1px solid var(--border-subtle);
+      font-family: var(--font-sans); font-size: 0.85rem; color: var(--text-main); margin-bottom: 12px; outline: none; transition: border-color 0.3s;
+    }
+    .input-field:focus { border-color: var(--text-main); }
+
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(18, 18, 18, 0.45); backdrop-filter: blur(6px); z-index: 2000;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+      opacity: 0; visibility: hidden; transition: all 0.4s ease;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal-dialog {
+      background: var(--bg-card); width: 100%; max-width: 420px; border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); padding: 40px 24px; border-radius: 3px; position: relative;
+      text-align: center; transform: scale(0.92); transition: transform 0.4s var(--transition-smooth);
+    }
+    .modal-overlay.active .modal-dialog { transform: scale(1); }
+    .modal-close-btn { position: absolute; top: 16px; right: 16px; background: transparent; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-muted); }
+
+    .toast-msg {
+      position: fixed; bottom: 64px; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: var(--text-main); color: #FFFFFF; padding: 10px 20px; font-family: var(--font-sans);
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); z-index: 3000; opacity: 0; transition: all 0.4s var(--transition-smooth); pointer-events: none;
+      max-width: 90vw; text-align: center;
+    }
+    .toast-msg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* Delays */
+    .fade-up-item { opacity: 0; transform: translateY(22px); transition: opacity 1.1s var(--transition-smooth), transform 1.1s var(--transition-smooth); }
+    #main-invitation.visible .fade-up-item { opacity: 1; transform: translateY(0); }
+    #main-invitation.visible .delay-1 { transition-delay: 0.2s; }
+    #main-invitation.visible .delay-2 { transition-delay: 0.4s; }
+    #main-invitation.visible .delay-3 { transition-delay: 0.6s; }
+    #main-invitation.visible .delay-4 { transition-delay: 0.8s; }
+    #main-invitation.visible .delay-5 { transition-delay: 1.0s; }
+  </style>
+</head>
+<body>
+
+  <!-- Audio Element: User's audio clip (Umm Kulthum) -->
+  <audio id="wedding-audio" loop preload="auto">
+    <source src="wedding_song.mp3" type="audio/mpeg">
+    <source src="WhatsApp Audio 2026-11-05 at 11.19.00 PM.mpeg" type="audio/mpeg">
+  </audio>
+
+  <!-- Top Floating Nav & Rotating Vinyl Disc Player -->
+  <nav class="top-floating-bar" id="top-nav">
+    <button class="music-player-pill" id="music-toggle-btn" aria-label="Toggle Umm Kulthum song">
+      <div class="vinyl-disc spinning" id="vinyl-icon"></div>
+      <div class="song-badge">
+        <span class="song-title">ألف ليلة وليلة</span>
+        <span class="song-artist">أم كلثوم · ونجومه وقمره</span>
+      </div>
+    </button>
+
+    <ul class="nav-links">
+      <li><a href="#invitation-top">Invitation</a></li>
+      <li><a href="#datetime-sec">Date &amp; Time</a></li>
+      <li><a href="#venue-sec">Palace Location</a></li>
+      <li><a href="#timeline-sec">Timeline</a></li>
+     
+    </ul>
+  </nav>
+
+  <!-- ==========================================================================
+       INTERACTION 1: HERO ENTRY WITH GRAND PALACE GATES BACKGROUND
+       ========================================================================== -->
+  <section id="hero-entry">
+    <div class="hero-header-text">
+      <p class="hero-subtitle">Special Wedding Invitation</p>
+      <h1 class="hero-title">You are invited</h1>
+    </div>
+
+    <!-- The 3D Responsive Physical Envelope Component (Clickable everywhere) -->
+    <div class="envelope-stage" id="envelope-stage" role="button" tabindex="0" aria-label="Tap to open wedding invitation">
+      <div class="envelope-body">
+        
+        <!-- Inner Invitation Card (glides upwards out of envelope on click) -->
+        <div class="inner-envelope-card" id="inner-envelope-card">
+          <p class="preview-arabic-line">" وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً "</p>
+          <h2 class="preview-couple-names">Amr &amp; Habeba</h2>
+          <p class="preview-details-line">21 · 11 · 2026 &nbsp;|&nbsp; MAKEN PALACE</p>
+        </div>
+
+        <!-- 100% Responsive Left, Right, & Bottom Folds -->
+        <div class="pocket-left"></div>
+        <div class="pocket-right"></div>
+        <div class="pocket-bottom"></div>
+
+        <!-- 100% Responsive Triangular Folding Top Flap -->
+        <div class="envelope-top-flap" id="envelope-top-flap"></div>
+      </div>
+
+      <!-- Royal Intertwined Monogram Wax Seal (Anchored perfectly at flap apex) -->
+      <div class="wax-seal-wrapper" id="seal-trigger">
+        <div class="pulse-glow-ring"></div>
+        <div class="royal-wax-seal" id="royal-seal">
+          
+          <!-- Masterpiece Intertwined 'A' & 'H' Monogram with Floral Laurel Wreath -->
+          <svg class="royal-monogram-svg" viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FCEFD2" />
+                <stop offset="40%" stop-color="#E5C788" />
+                <stop offset="75%" stop-color="#C5A059" />
+                <stop offset="100%" stop-color="#91702C" />
+              </linearGradient>
+              <linearGradient id="goldLuster" x1="10%" y1="0%" x2="90%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="25%" stop-color="#FFF2D6" />
+                <stop offset="50%" stop-color="#E8C988" />
+                <stop offset="75%" stop-color="#C5A059" />
+                <stop offset="100%" stop-color="#846221" />
+              </linearGradient>
+              <filter id="monogramGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="1.8" stdDeviation="1.2" flood-color="#000" flood-opacity="0.95" />
+                <feDropShadow dx="0" dy="-0.6" stdDeviation="0.4" flood-color="#FFF4D8" flood-opacity="0.6" />
+              </filter>
+            </defs>
+
+            <!-- Outer Scalloped Laurel Ring Frame -->
+            <circle cx="60" cy="60" r="54" stroke="url(#goldLuster)" stroke-width="1.4" stroke-dasharray="2.5 3" fill="none" opacity="0.85" />
+            <circle cx="60" cy="60" r="49" stroke="url(#goldGradient)" stroke-width="1" fill="none" opacity="0.7" />
+            <circle cx="60" cy="60" r="46.5" stroke="url(#goldLuster)" stroke-width="0.5" stroke-dasharray="1 2" fill="none" opacity="0.6" />
+
+            <!-- Surrounding Laurel Olive Leaves Accents -->
+            <g fill="url(#goldLuster)" filter="url(#monogramGlow)">
+              <path d="M 32 30 C 29 35 34 39 38 38 C 36 34 34 31 32 30 Z" opacity="0.9" />
+              <path d="M 88 30 C 91 35 86 39 82 38 C 84 34 86 31 88 30 Z" opacity="0.9" />
+              <path d="M 23 44 C 20 48 24 52 28 51 C 26 47 24 45 23 44 Z" opacity="0.9" />
+              <path d="M 97 44 C 100 48 96 52 92 51 C 94 47 96 45 97 44 Z" opacity="0.9" />
+              <path d="M 22 60 C 20 65 24 68 28 67 C 26 63 24 61 22 60 Z" opacity="0.9" />
+              <path d="M 98 60 C 100 65 96 68 92 67 C 94 63 96 61 98 60 Z" opacity="0.9" />
+              <path d="M 27 75 C 25 79 30 82 34 80 C 31 77 29 76 27 75 Z" opacity="0.9" />
+              <path d="M 93 75 C 95 79 90 82 86 80 C 89 77 91 76 93 75 Z" opacity="0.9" />
+              <path d="M 37 87 C 36 91 42 92 45 89 C 41 88 39 87 37 87 Z" opacity="0.9" />
+              <path d="M 83 87 C 84 91 78 92 75 89 C 79 88 81 87 83 87 Z" opacity="0.9" />
+            </g>
+
+            <!-- Crown Apex with Star and Pearls -->
+            <polygon points="60,18 62.5,23.5 68,23.5 63.5,26.8 65.2,32 60,28.8 54.8,32 56.5,26.8 52,23.5 57.5,23.5" fill="url(#goldLuster)" filter="url(#monogramGlow)" />
+            <circle cx="53" cy="22" r="1.2" fill="url(#goldLuster)" />
+            <circle cx="67" cy="22" r="1.2" fill="url(#goldLuster)" />
+
+            <!-- Masterpiece Intertwined 'A' and 'H' (High Relief Gold Calligraphy) -->
+            <!-- Letter A Main Strokes -->
+            <path d="M 34 86 C 38 86 43 83 45 78 L 58.5 35 C 59.3 32.5 60.7 32.5 61.5 35 L 75 78 C 77 83 82 86 86 86" 
+                  stroke="url(#goldLuster)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#monogramGlow)" />
+            
+            <!-- Letter A Horizontal Crossbar & Flourish -->
+            <path d="M 43 64 C 52 61 68 61 77 64" 
+                  stroke="url(#goldLuster)" stroke-width="2.2" stroke-linecap="round" fill="none" filter="url(#monogramGlow)" />
+            <path d="M 38 68 C 45 61 75 61 82 68" 
+                  stroke="url(#goldGradient)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.75" />
+
+            <!-- Letter H Interlocking Vertical Pillars -->
+            <path d="M 41 38 C 38 38 36 42 37 47 L 41 83 C 41 87 45 89 48 87" 
+                  stroke="url(#goldLuster)" stroke-width="2.6" stroke-linecap="round" fill="none" filter="url(#monogramGlow)" />
+            <path d="M 71 34 C 75 34 77 38 77 43 L 81 81 C 81 85 85 88 88 86" 
+                  stroke="url(#goldLuster)" stroke-width="2.6" stroke-linecap="round" fill="none" filter="url(#monogramGlow)" />
+            
+            <!-- Central Interlock Flourish -->
+            <path d="M 37 54 C 48 50.5 72 50.5 83 54" 
+                  stroke="url(#goldLuster)" stroke-width="2.4" stroke-linecap="round" fill="none" filter="url(#monogramGlow)" />
+
+            <!-- Base Ornamental Swirl -->
+            <path d="M 45 88 C 53 94 67 94 75 88" 
+                  stroke="url(#goldLuster)" stroke-width="1.6" stroke-linecap="round" fill="none" filter="url(#monogramGlow)" />
+            <circle cx="60" cy="92" r="1.5" fill="url(#goldLuster)" />
+          </svg>
+        </div>
+
+        <div class="seal-tap-guide">
+          <span>Tap seal to open</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MAGICAL BUTTERFLIES (فراشات بتطير وتقف على الكلام)
+       ========================================================================== -->
+  <div class="butterfly-system">
+    <div class="butterfly bf-1" aria-hidden="true">
+      <div class="bf-wing bf-wing-left"></div>
+      <div class="bf-wing bf-wing-right"></div>
+    </div>
+    <div class="butterfly bf-2" aria-hidden="true">
+      <div class="bf-wing bf-wing-left"></div>
+      <div class="bf-wing bf-wing-right"></div>
+    </div>
+    <div class="butterfly bf-3" aria-hidden="true">
+      <div class="bf-wing bf-wing-left"></div>
+      <div class="bf-wing bf-wing-right"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN INVITATION PAGE
+       ========================================================================== -->
+  <main id="main-invitation">
+
+    <!-- 1. THE MAIN INVITATION CARD (MATCHING THE SCREENSHOT EXACTLY) -->
+    <div class="masterpiece-card" id="invitation-top">
+      <div class="card-border-outer"></div>
+      <div class="card-border-inner"></div>
+      <div class="corner-mark corner-tl"></div>
+      <div class="corner-mark corner-tr"></div>
+      <div class="corner-mark corner-bl"></div>
+      <div class="corner-mark corner-br"></div>
+
+      <!-- Champagne Glasses Line-Art Drawing -->
+      <div class="line-art-top fade-up-item delay-1">
+        <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" width="130" height="98">
+          <path class="draw-stroke" d="M 62 18 C 62 18 53 38 56 60 C 58 72 68 76 72 77 L 72 102 M 58 102 L 86 102" />
+          <path class="draw-stroke" d="M 57 28 C 65 30 73 24 75 22" />
+          <path class="draw-stroke" d="M 98 18 C 98 18 107 38 104 60 C 102 72 92 76 88 77 L 88 102 M 74 102 L 102 102" />
+          <path class="draw-stroke" d="M 103 28 C 95 30 87 24 85 22" />
+          <path class="draw-stroke" d="M 80 12 L 80 5" stroke-linecap="round" />
+          <path class="draw-stroke" d="M 74 15 L 68 11" stroke-linecap="round" />
+          <path class="draw-stroke" d="M 86 15 L 92 11" stroke-linecap="round" />
+          <circle class="sparkle-dot" cx="64" cy="46" r="1.2" />
+          <circle class="sparkle-dot" cx="67" cy="36" r="1" />
+          <circle class="sparkle-dot" cx="96" cy="48" r="1.2" />
+          <circle class="sparkle-dot" cx="93" cy="38" r="1" />
+          <circle class="sparkle-dot" cx="80" cy="22" r="1.4" />
+        </svg>
+      </div>
+
+      <!-- Arabic Quranic Verse -->
+      <div class="arabic-verse-container fade-up-item delay-2">
+        <p class="arabic-bismillah">بِسْمِ ٱللّٰهِ ٱلرَّحْمٰنِ ٱلرَّحِيمِ</p>
+        <h2 class="arabic-verse">" وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً "</h2>
+        <div class="verse-ornament">
+          <div class="verse-ornament-diamond"></div>
+        </div>
+      </div>
+
+      <!-- Save the Date Header -->
+      <div class="fade-up-item delay-3">
+        <p class="invitation-intro">Save the Date</p>
+        <p class="invitation-for">FOR THE WEDDING OF</p>
+      </div>
+
+      <!-- Couple Names: Amr & Habeba (With Butterfly Rest Point) -->
+      <div class="couple-names-wrap fade-up-item delay-4">
+        <h1 class="couple-names">
+          Amr <span class="ampersand">&amp;</span> Habeba
+        </h1>
+
+        <div class="divider-monogram">
+          <div class="divider-line"></div>
+          <span class="divider-initials">A · H</span>
+          <div class="divider-line"></div>
+        </div>
+      </div>
+
+      <!-- Royal Invitation Request (Matching Provided Image Exactly) -->
+      <div class="fade-up-item delay-4">
+        <p class="arabic-invitation-request">
+          يتشرف العروسين وعائلتيهما بدعوتكم لمشاركتهم فرحة العمر وتخليد أجمل الذكريات
+        </p>
+        <p class="announcement-text">
+          Request the honor of your gracious presence to celebrate their wedding and witness the union of two hearts.
+        </p>
+      </div>
+
+      <!-- Romantic Arched Palace Vignette (White & Pink with Roses - جوه الدعوة) -->
+      <div class="card-palace-vignette fade-up-item delay-4">
+        <img src="palace_romantic.jpg" alt="Maken Palace - Romantic Wedding Chateau" class="vignette-img">
+        <div class="vignette-border"></div>
+        <p class="vignette-caption">MAKEN PALACE · ORABI</p>
+      </div>
+
+      <!-- Dining Table Line Art Drawing -->
+      <div class="line-art-bottom fade-up-item delay-5">
+        <svg viewBox="0 0 380 90" xmlns="http://www.w3.org/2000/svg">
+          <line class="draw-stroke" x1="20" y1="78" x2="360" y2="78" stroke-width="1" />
+          <line class="draw-stroke" x1="50" y1="84" x2="330" y2="84" stroke-width="0.6" stroke-dasharray="3 3" />
+          <path class="draw-stroke" d="M 190 78 L 190 32 M 184 78 L 196 78 M 182 45 C 182 45 174 52 165 48 M 198 45 C 198 45 206 52 215 48" stroke-linecap="round" />
+          <path class="draw-stroke" d="M 165 48 L 165 38 M 215 48 L 215 38 M 190 32 L 190 22" />
+          <circle class="sparkle-dot" cx="165" cy="34" r="1.5" />
+          <circle class="sparkle-dot" cx="190" cy="18" r="1.8" />
+          <circle class="sparkle-dot" cx="215" cy="34" r="1.5" />
+          <path class="draw-stroke" d="M 140 78 C 150 68 170 70 180 75 C 185 70 200 68 220 75 C 230 72 245 74 250 78" />
+          <path class="draw-stroke" d="M 152 70 C 148 64 153 58 158 62" />
+          <path class="draw-stroke" d="M 226 71 C 230 64 225 58 220 62" />
+          <ellipse class="draw-stroke" cx="95" cy="78" rx="20" ry="3.5" />
+          <path class="draw-stroke" d="M 68 78 L 68 62 C 68 56 63 52 63 46 L 73 46 C 73 52 68 56 68 62" />
+          <ellipse class="draw-stroke" cx="285" cy="78" rx="20" ry="3.5" />
+          <path class="draw-stroke" d="M 312 78 L 312 62 C 312 56 307 52 307 46 L 317 46 C 317 52 312 56 312 62" />
+        </svg>
+      </div>
+
+      <!-- Elegant Scroll Cue to Dedicated Sections -->
+      <a href="#datetime-sec" class="scroll-cue-pill fade-up-item delay-5">
+        <span>تفاصيل الموعد والمكان</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <!-- ==========================================================================
+         SEPARATE SECTION 1: DATE & TIME (الموعد والتاريخ في سكشن منفصل)
+         ========================================================================== -->
+    <div class="masterpiece-card" id="datetime-sec">
+      <div class="card-border-outer"></div>
+      <div class="corner-mark corner-tl"></div>
+      <div class="corner-mark corner-tr"></div>
+      <div class="corner-mark corner-bl"></div>
+      <div class="corner-mark corner-br"></div>
+
+      <div class="section-header">
+        <p class="section-sub">Save the Date</p>
+        <h2 class="section-title">The Wedding Date</h2>
+        <p class="section-arabic-sub">موعد وتوقيت ليلة العمر</p>
+      </div>
+
+      <div class="date-highlight-box">
+        <p class="date-main-text">SATURDAY · 21 NOVEMBER 2026</p>
+        <p class="time-sub-text">5:00 PM &nbsp;·&nbsp; الخامسة مساءً</p>
+      </div>
+
+      <!-- Realtime Countdown Timer -->
+      <div class="countdown-section">
+        <div class="countdown-item">
+          <span class="countdown-num cd-days" id="cd-days">00</span>
+          <span class="countdown-lbl">Days</span>
+        </div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-item">
+          <span class="countdown-num cd-hours" id="cd-hours">00</span>
+          <span class="countdown-lbl">Hours</span>
+        </div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-item">
+          <span class="countdown-num cd-minutes" id="cd-minutes">00</span>
+          <span class="countdown-lbl">Mins</span>
+        </div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-item">
+          <span class="countdown-num cd-seconds" id="cd-seconds">00</span>
+          <span class="countdown-lbl">Secs</span>
+        </div>
+      </div>
+
+      <!-- Add to Calendar Button -->
+      <div style="width: 100%; max-width: 320px;">
+        <button class="btn-lux btn-lux-primary" id="calendar-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>حفظ الموعد في التقويم (.ics)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         SEPARATE SECTION 2: PALACE & VENUE (المكان وقصر ماكن في سكشن منفصل)
+         ========================================================================== -->
+    <div class="masterpiece-card" id="venue-sec">
+      <div class="card-border-outer"></div>
+      <div class="corner-mark corner-tl"></div>
+      <div class="corner-mark corner-tr"></div>
+      <div class="corner-mark corner-bl"></div>
+      <div class="corner-mark corner-br"></div>
+
+      <div class="section-header">
+        <p class="section-sub">The Royal Destination</p>
+        <h2 class="section-title">Maken Palace</h2>
+        <p class="section-arabic-sub">قصر ماكن - جمعية عرابي</p>
+      </div>
+
+      <!-- Interactive Google Maps Frame (شكل جوجل ماب الأصلي) -->
+      <div class="google-map-wrapper">
+        <iframe 
+          title="Maken Palace Google Maps Location"
+          class="google-map-iframe"
+          src="https://maps.google.com/maps?q=30.222718,31.488344+(Maken+Palace+قصر+ماكن)&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+          loading="lazy" 
+          allowfullscreen>
+        </iframe>
+        
+        <!-- Direct App Link Floating Button -->
+        <div class="map-floating-overlay">
+          <a href="https://maps.app.goo.gl/yfvGGXYznMd4uSpVA?g_st=aw" target="_blank" rel="noopener noreferrer" class="google-maps-direct-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>فتح في تطبيق خرائط جوجل · Google Maps</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="palace-card-body">
+        <h3 class="palace-card-title">قصر ماكن الملكي — MAKEN PALACE</h3>
+        <p class="palace-card-desc">خط 5 شمال - جمعية أحمد عرابي - طريق مصر الإسماعيلية</p>
+      </div>
+
+      <!-- Palace Venue Info Details -->
+      <div class="venue-info-grid">
+        <div class="venue-info-item">
+          <p class="venue-info-label">Access Gate</p>
+          <h4 class="venue-info-val">Gate 4 or Gate 5</h4>
+          <p class="venue-info-sub">بوابات الدخول 4 أو 5 بجمعية أحمد عرابي</p>
+        </div>
+        <div class="venue-info-item">
+          <p class="venue-info-label">Parking &amp; Valet</p>
+          <h4 class="venue-info-val">Valet Service Provided</h4>
+          <p class="venue-info-sub">خدمة فاليه وباركينج خاص بالضيوف</p>
+        </div>
+        <div class="venue-info-item">
+          <p class="venue-info-label">Atmosphere</p>
+          <h4 class="venue-info-val">Open Air &amp; Grand Ballroom</h4>
+          <p class="venue-info-sub">أجواء ساحرة تجمع بين القاعة والحديقة المفتوحة</p>
+        </div>
+        <div class="venue-info-item">
+          <p class="venue-info-label">Arrival Time</p>
+          <h4 class="venue-info-val">Arrive by 4:45 PM</h4>
+          <p class="venue-info-sub">يُفضل التواجد قبل موعد الزفة لراحتكم</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         SECTION 3: WEDDING TIMELINE (برنامج الحفل)
+         ========================================================================== -->
+    <div class="masterpiece-card" id="timeline-sec">
+      <div class="card-border-outer"></div>
+      <div class="corner-mark corner-tl"></div>
+      <div class="corner-mark corner-tr"></div>
+      <div class="corner-mark corner-bl"></div>
+      <div class="corner-mark corner-br"></div>
+
+      <div class="section-header">
+        <p class="section-sub">Order of the Evening</p>
+        <h2 class="section-title">Wedding Timeline</h2>
+        <p class="section-arabic-sub">برنامج الاحتفال وسير السهرة</p>
+      </div>
+
+      <div class="timeline-container">
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-content">
+            <p class="timeline-time">05:00 PM</p>
+            <h4 class="timeline-event">Welcome &amp; Cocktails</h4>
+            <p class="timeline-arabic">استقبال الضيوف والمشروبات الترحيبية</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-content">
+            <p class="timeline-time">06:00 PM</p>
+            <h4 class="timeline-event">The Grand Zaffa</h4>
+            <p class="timeline-arabic">الزفة الكبرى ودخول العروسين الملكي</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-content">
+            <p class="timeline-time">07:15 PM</p>
+            <h4 class="timeline-event">First Dance &amp; Cake</h4>
+            <p class="timeline-arabic">الرقصة الأولى وتقطيع كعكة الزفاف</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-content">
+            <p class="timeline-time">08:30 PM</p>
+            <h4 class="timeline-event">Royal Dinner Banquet</h4>
+            <p class="timeline-arabic">افتتاح مأدبة العشاء الفاخرة</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-content">
+            <p class="timeline-time">10:00 PM</p>
+            <h4 class="timeline-event">Party &amp; Celebration</h4>
+            <p class="timeline-arabic">الموسيقى والاحتفال حتى نهاية السهرة</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==========================================================================
+         SECTION 5: UMM KULTHUM LYRIC CARD (ونجومه وقمره)
+         ========================================================================== -->
+    <div class="masterpiece-card" style="padding: 32px 20px;">
+      <div class="card-border-outer"></div>
+      <div class="lyric-banner">
+        <p class="lyric-quote">
+          " يا حبيبي.. الليل وسماه.. ونجومه وقمره.. قمره وسهره وإنت وأنا "
+        </p>
+        <p class="lyric-author">— كوكب الشرق، أم كلثوم (ألف ليلة وليلة)</p>
+      </div>
+      <p style="font-family: var(--font-serif); font-style: italic; color: var(--text-muted); font-size: 1.05rem;">
+        في ليلة من ليالي ألف ليلة وليلة، نسعد بتشريفكم لمشاركتنا أسعد لحظات العمر
+      </p>
+    </div>
+
+    
+
+    <!-- Page Footer -->
+    <footer class="page-footer">
+      <div class="footer-monogram">Amr &amp; Habeba</div>
+      <p class="footer-quote">"يا حبيبي.. الليل وسماه ونجومه وقمره سهرانين"</p>
+      <p class="footer-copy">Saturday, 21 November 2026 · Maken Palace, Cairo</p>
+    </footer>
+
+  </main>
+
+  <!-- Mobile Sticky Bottom Bar -->
+  <div class="mobile-bottom-bar" id="mobile-bar">
+    <a href="#invitation-top" class="mobile-bar-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      </svg>
+      <span>Top</span>
+    </a>
+    <a href="#datetime-sec" class="mobile-bar-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      <span>Date</span>
+    </a>
+    <a href="#venue-sec" class="mobile-bar-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span>Palace</span>
+    </a>
+    <button class="mobile-bar-btn" onclick="openModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span>RSVP</span>
+    </button>
+  </div>
+
+  <!-- RSVP Modal -->
+  <div class="modal-overlay" id="rsvp-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <h3 class="modal-title" id="modal-title">RSVP</h3>
+      <p style="font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 24px;">
+        Kindly celebrate with us
+      </p>
+
+      <form id="rsvp-form" onsubmit="event.preventDefault(); handleRsvpSubmit();">
+        <input type="text" class="input-field" placeholder="Full Name(s) / الاسم الكريم" required id="guest-name">
+        <input type="number" class="input-field" placeholder="Number of Guests / عدد الأفراد" min="1" max="10" value="1" id="guest-count">
+        <textarea class="input-field" rows="3" placeholder="Warm Wishes for Amr &amp; Habeba... / تهنئتكم للعروسين" style="resize: none;" id="guest-message"></textarea>
+        
+        <button type="submit" class="btn-lux btn-lux-primary" style="margin-top: 10px;">
+          <span>تأكيد الحضور</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toast-message">Event Saved to Calendar</div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT LOGIC
+       ========================================================================== -->
+  <script>
+    /* 1. Audio Control */
+    const audio = document.getElementById('wedding-audio');
+    const musicBtn = document.getElementById('music-toggle-btn');
+    const vinylIcon = document.getElementById('vinyl-icon');
+    let isMusicPlaying = false;
+
+    function playAudioSafely() {
+      if (!audio) return;
+      try {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isMusicPlaying = true;
+            if (vinylIcon) vinylIcon.classList.add('spinning');
+            showToast('🎶 أم كلثوم — ألف ليلة وليلة (ونجومه وقمره)');
+          }).catch((err) => {
+            console.log('Audio autoplay note:', err);
+          });
+        }
+      } catch (err) {
+        console.error('Audio play error:', err);
+      }
+    }
+
+    if (musicBtn) {
+      musicBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (audio.paused) {
+          audio.play().then(() => {
+            isMusicPlaying = true;
+            if (vinylIcon) vinylIcon.classList.add('spinning');
+            showToast('Music Playing');
+          }).catch(() => {});
+        } else {
+          audio.pause();
+          isMusicPlaying = false;
+          if (vinylIcon) vinylIcon.classList.remove('spinning');
+          showToast('Music Paused');
+        }
+      });
+    }
+
+    /* 2. Magical Butterfly Burst Generator (واول ما ادوس عليها يطلع فراشات) */
+    function triggerButterflyBurst(x, y) {
+      const burstContainer = document.createElement('div');
+      burstContainer.className = 'burst-butterflies-container';
+      document.body.appendChild(burstContainer);
+
+      const butterflyCount = 16;
+      const sparklesCount = 24;
+
+      // 1. Golden Stardust Sparkle Burst
+      for (let i = 0; i < sparklesCount; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'seal-sparkle-dot';
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 40 + Math.random() * 160;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist - 15;
+        spark.style.left = `${x}px`;
+        spark.style.top = `${y}px`;
+        spark.style.setProperty('--tx', `${tx}px`);
+        spark.style.setProperty('--ty', `${ty}px`);
+        spark.style.animation = `sparkleFly ${0.5 + Math.random() * 0.4}s cubic-bezier(0.1, 0.8, 0.3, 1) forwards`;
+        burstContainer.appendChild(spark);
+      }
+
+      // 2. Swarm of 3D Golden Butterflies Radiating Outward in All Directions
+      for (let i = 0; i < butterflyCount; i++) {
+        const bf = document.createElement('div');
+        bf.className = 'burst-butterfly';
+        
+        const leftWing = document.createElement('div');
+        leftWing.className = 'burst-wing burst-wing-left';
+        const rightWing = document.createElement('div');
+        rightWing.className = 'burst-wing burst-wing-right';
+        bf.appendChild(leftWing);
+        bf.appendChild(rightWing);
+
+        // 360-degree radial explosion angles with natural upward bias
+        const angle = (i / butterflyCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.35;
+        const distance = 160 + Math.random() * 260;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - (60 + Math.random() * 110);
+        const rot = (angle * 180 / Math.PI) + 90 + (Math.random() - 0.5) * 35;
+        const scale = 0.85 + Math.random() * 0.55;
+        const delay = Math.random() * 0.12;
+        const duration = 2.4 + Math.random() * 1.0;
+
+        bf.style.left = `${x}px`;
+        bf.style.top = `${y}px`;
+        bf.style.setProperty('--tx', `${tx}px`);
+        bf.style.setProperty('--ty', `${ty}px`);
+        bf.style.setProperty('--rot', `${rot}deg`);
+        bf.style.setProperty('--scale', scale);
+        bf.style.animation = `burstButterflyFlight ${duration}s cubic-bezier(0.12, 0.8, 0.32, 1) ${delay}s forwards`;
+        
+        burstContainer.appendChild(bf);
+      }
+
+      // Transition smoothly to persistent butterflies
+      setTimeout(() => {
+        document.body.classList.add('butterflies-active');
+      }, 500);
+
+      // Clean up DOM after burst completes
+      setTimeout(() => {
+        if (burstContainer && burstContainer.parentNode) {
+          burstContainer.parentNode.removeChild(burstContainer);
+        }
+      }, 4200);
+    }
+
+    /* 3. Envelope Opening Interaction */
+    const heroEntry = document.getElementById('hero-entry');
+    const envelopeStage = document.getElementById('envelope-stage');
+    const royalSeal = document.getElementById('royal-seal');
+    const sealTrigger = document.getElementById('seal-trigger');
+    const mainInvitation = document.getElementById('main-invitation');
+    const topNav = document.getElementById('top-nav');
+    const mobileBar = document.getElementById('mobile-bar');
+    let hasOpened = false;
+
+    function executeEnvelopeOpen(e) {
+      if (hasOpened) return;
+      hasOpened = true;
+
+      // 0. Calculate exact center coordinate of the wax seal
+      let originX = window.innerWidth / 2;
+      let originY = window.innerHeight * 0.58;
+      const targetElement = royalSeal || sealTrigger;
+      if (targetElement) {
+        const rect = targetElement.getBoundingClientRect();
+        originX = rect.left + rect.width / 2;
+        originY = rect.top + rect.height / 2;
+      } else if (e && e.clientX) {
+        originX = e.clientX;
+        originY = e.clientY;
+      }
+
+      // 1. Instantly trigger magical butterfly burst from the wax seal!
+      triggerButterflyBurst(originX, originY);
+
+      // 2. Break the seal immediately with golden burst
+      if (sealTrigger) sealTrigger.classList.add('broken');
+      if (royalSeal) royalSeal.classList.add('seal-broken');
+
+      // 3. Play audio safely
+      playAudioSafely();
+
+      // 4. Open top flap in 3D and slide card upwards
+      setTimeout(() => {
+        if (envelopeStage) envelopeStage.classList.add('opening');
+      }, 250);
+
+      // 5. Reveal main invitation smoothly
+      setTimeout(() => {
+        if (heroEntry) heroEntry.classList.add('opened');
+        if (mainInvitation) mainInvitation.classList.add('visible');
+        if (topNav) topNav.classList.add('active');
+        if (mobileBar) mobileBar.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1500);
+    }
+
+    if (envelopeStage) {
+      envelopeStage.addEventListener('click', executeEnvelopeOpen);
+      envelopeStage.addEventListener('touchend', (e) => {
+        executeEnvelopeOpen(e);
+      }, { passive: true });
+    }
+
+    if (sealTrigger) {
+      sealTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        executeEnvelopeOpen(e);
+      });
+    }
+
+    /* 3. Realtime Countdown to Saturday Nov 21, 2026 5:00 PM */
+    const weddingDate = new Date('2026-11-21T17:00:00+02:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = weddingDate - now;
+
+      if (difference <= 0) {
+        document.getElementById('cd-days').textContent = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-minutes').textContent = '00';
+        document.getElementById('cd-seconds').textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* 4. Calendar (.ics) Download */
+    const calendarBtn = document.getElementById('calendar-btn');
+    if (calendarBtn) {
+      calendarBtn.addEventListener('click', () => {
+        const icsData = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//Amr & Habeba Wedding Invitation//EN',
+          'CALSCALE:GREGORIAN',
+          'METHOD:PUBLISH',
+          'BEGIN:VEVENT',
+          'UID:amr-habeba-wedding-20261121@makenpalace',
+          'DTSTAMP:20261105T120000Z',
+          'DTSTART:20261121T150000Z',
+          'DTEND:20261121T220000Z',
+          'SUMMARY:Amr & Habeba Wedding Celebration',
+          'DESCRIPTION:The Wedding Celebration of Amr & Habeba at Maken Palace - Orabi.\\nGoogle Maps: https://maps.app.goo.gl/yfvGGXYznMd4uSpVA',
+          'LOCATION:Maken Palace, Ahmed Orabi Association, Cairo, Egypt',
+          'STATUS:CONFIRMED',
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n');
+
+        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', 'Amr_and_Habeba_Wedding.ics');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        showToast('تم حفظ الموعد في التقويم (.ics)');
+      });
+    }
+
+    /* 5. RSVP Modal */
+    const rsvpModal = document.getElementById('rsvp-modal');
+    const rsvpTrigger = document.getElementById('rsvp-trigger-btn');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const toast = document.getElementById('toast-message');
+
+    function openModal() { if (rsvpModal) rsvpModal.classList.add('active'); }
+    function closeModal() { if (rsvpModal) rsvpModal.classList.remove('active'); }
+
+    if (rsvpTrigger) rsvpTrigger.addEventListener('click', openModal);
+    document.querySelectorAll('.rsvp-open-trigger').forEach(btn => btn.addEventListener('click', openModal));
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (rsvpModal) {
+      rsvpModal.addEventListener('click', (e) => {
+        if (e.target === rsvpModal) closeModal();
+      });
+    }
+
+    function showToast(text) {
+      if (!toast) return;
+      toast.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, 3500);
+    }
+
+    function handleRsvpSubmit() {
+      const name = document.getElementById('guest-name').value;
+      const count = document.getElementById('guest-count').value;
+      closeModal();
+      showToast(`تم تأكيد الحضور، شكراً ${name}! (${count} أفراد)`);
+      document.getElementById('rsvp-form').reset();
+    }
+
+    /* 6. Live Wishes Stream */
+    const defaultWishes = [
+      { name: "أحمد وسارة", time: "الآن", text: "ألف مبروك لأجمل وأرق عروسين! ربنا يسعدكم ويتمملكم على ألف خير." },
+      { name: "عمر وحبيبة", time: "منذ ساعة", text: "يا حبيبي الليل وسماه ونجومه وقمره سهرانين.. ليلة العمر لأحلى عمرو وحبيبة!" },
+      { name: "كريم ومريم", time: "اليوم", text: "بارك الله لكما وبارك عليكما وجمع بينكما في خير، متحمسين جداً لليوم الجميل ده في قصر ماكن." }
+    ];
+
+    function loadWishes() {
+      let wishes = JSON.parse(localStorage.getItem('wedding_wishes_amr_habeba_v6') || 'null');
+      if (!wishes) {
+        wishes = defaultWishes;
+        localStorage.setItem('wedding_wishes_amr_habeba_v6', JSON.stringify(wishes));
+      }
+
+      const stream = document.getElementById('guestbook-stream');
+      if (stream) {
+        stream.innerHTML = wishes.map(w => `
+          <div class="guestbook-card">
+            <div class="wish-author">
+              <span>${w.name}</span>
+              <span class="wish-time">${w.time}</span>
+            </div>
+            <p class="wish-text">${w.text}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    function submitWish() {
+      const nameInput = document.getElementById('wish-name');
+      const msgInput = document.getElementById('wish-msg');
+      const name = nameInput.value.trim();
+      const text = msgInput.value.trim();
+
+      if (!name || !text) return;
+
+      const wishes = JSON.parse(localStorage.getItem('wedding_wishes_amr_habeba_v6') || '[]');
+      wishes.unshift({ name, time: "الآن", text });
+      localStorage.setItem('wedding_wishes_amr_habeba_v6', JSON.stringify(wishes));
+      loadWishes();
+
+      nameInput.value = '';
+      msgInput.value = '';
+      showToast('تمت إضافة تهنئتكم الرقيقة بنجاح!');
+    }
+
+    loadWishes();
+  </script>
+</body>
+</html>
